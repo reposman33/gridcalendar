@@ -10,9 +10,6 @@ const getDates = () => {
     const date = new Date(today + i*day);
     const nrOfMonths = result.length;
     const nrOfDaysinLastMonth = result[nrOfMonths-1].length;
-
-   // console.log(result);
-
     if( result[nrOfMonths-1][nrOfDaysinLastMonth - 1].getMonth() != date.getMonth()) {
       result.push([]);
     }
