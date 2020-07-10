@@ -3,18 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=, initial-scale=">
-  <link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet" href="style.css" type="text/css">
+  	<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
 	<title>gridCalendar</title>
 </head>
 <body>
-<h1>Gridcalendar</h1>
 
-<p>Create your calendar</p!>
+<div class="container d-flex flex-column align-items-center"> 
+	<h1>Gridcalendar</h1>
+	
+	<p>Create your calendar</p!>
+	
+<table>
+	<tr>
+		<td>From</td>
+		<td><input type="date" id='dateFrom'></td>
+	</tr>
+	<tr>
+		<td>To</td>
+		<td><input type="date" id='dateTo'></td>
+	</tr>
+	<tr>
+		<td colspan="2"><button class="btn btn-primary my-3">Go!</button></td>
+	</tr>
+</table>
 
-<button>Click me</button>
-
-<div class="container"> 
-  Hello pietje
 </div>
+
+<script src="./index.js" type='application/javascript'></script>
 </body>
 </html>
