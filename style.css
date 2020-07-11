@@ -28,8 +28,7 @@ table tr:last-of-type td:last-of-type {
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	padding: 1rem;
-	/* width: 80vh;
-	height: 65vh; */
+	width: 65vh;
 }
 .month {
 	align-items: center;
@@ -40,6 +39,10 @@ table tr:last-of-type td:last-of-type {
 	margin: 0.5rem;
 	width: 30%;
 }
+.month div:first-of-type span {
+	font-weight: bold;
+}
+
 .week {
 	display: flex;
 	flex-direction: row;
