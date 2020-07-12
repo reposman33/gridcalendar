@@ -92,9 +92,12 @@ const createWeek = () => {
 	return week;
 };
 
-const createMonth = () => {
+const createMonth = (monthName, year) => {
 	const month = document.createElement("div");
 	month.setAttribute("class", "month");
+	const span = document.createElement("span");
+	span.appendChild(document.createTextNode(`${monthName} ${year}`));
+	month.appendChild(span);
 	return month;
 };
 
@@ -105,8 +108,13 @@ const createCalendar = () => {
 };
 
 const addDayToWeek = (day, week) => week.appendChild(day);
+
 const addWeekToMonth = (week, month) => month.appendChild(week);
-const addMonthToCalendar = (month, calendar) => calendar.appendChild(month);
+
+const addMonthToCalendar = (month, calendar) => {
+	calendar.appendChild(month);
+};
+
 const addCalendarToContainer = (calendar) => {
 	const container = document.querySelector(".container");
 	container.appendChild(calendar);
@@ -116,8 +124,11 @@ const addCalendarToContainer = (calendar) => {
 source.subscribe((res) => {
 	const calendar = document.querySelector(".calendar") || createCalendar();
 
-	res.forEach((month) => {
-		const _month = createMonth();
+	res.forEach((month, i) => {
+		const _month = createMonth(
+			month[1][0].toLocaleDateString(navigator.language, { month: "long" }),
+			month[1][0].getFullYear()
+		);
 		addWeekToMonth(createDaysRow(), _month);
 		month.forEach((week) => {
 			const _week = createWeek();

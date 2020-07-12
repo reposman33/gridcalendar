@@ -39,8 +39,12 @@ table tr:last-of-type td:last-of-type {
 	margin: 0.5rem;
 	width: 30%;
 }
-.month div:first-of-type span {
+.month > div span {
 	font-weight: bold;
+}
+
+.month > span {
+	font-size: 0.85rem;
 }
 
 .week {
