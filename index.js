@@ -74,15 +74,18 @@ const getMonths = (dateFrom, dateTo) => {
 
 const source = fromEvent(button, "click").pipe(map((_) => getMonths(dateFrom.value, dateTo.value)));
 
+
 const createDaysRow = () => {
 	const week = createWeek();
 	["sun", "mon", "tue", "wed", "thu", "fri", "sat"].forEach((day) => addDayToWeek(createDay(day), week));
 	return week;
 };
 
-const createDay = (data) => {
+const createDay = (content, id) => {
 	const day = document.createElement("span");
-	day.innerText = data;
+	id && content && day.setAttribute("data-day-id", id);
+	day.innerText = content;
+	day.addEventListener("click", showAlarmWindow);
 	return day;
 };
 
@@ -124,18 +127,18 @@ const addCalendarToContainer = (calendar) => {
 source.subscribe((res) => {
 	const calendar = document.querySelector(".calendar") || createCalendar();
 
-	res.forEach((month, i) => {
+	res.forEach((month, monthIndex) => {
 		const _month = createMonth(
 			month[1][0].toLocaleDateString(navigator.language, { month: "long" }),
 			month[1][0].getFullYear()
 		);
 		addWeekToMonth(createDaysRow(), _month);
-		month.forEach((week) => {
+		month.forEach((week, weekIndex) => {
 			const _week = createWeek();
-			week.forEach((day) => {
-				addDayToWeek(createDay(day ? day.getDate() : ""), _week);
+			week.forEach((day, dayIndex) => {
+				addDayToWeek(createDay(day ? day.getDate() : "", monthIndex * 100 + weekIndex * 10 + dayIndex), _week);
+				addWeekToMonth(_week, _month);
 			});
-			addWeekToMonth(_week, _month);
 		});
 		addMonthToCalendar(_month, calendar);
 	});
