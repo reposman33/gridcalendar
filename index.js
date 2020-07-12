@@ -99,7 +99,7 @@ const createMonth = () => {
 };
 
 const createCalendar = () => {
-	const calendar = document.createElement("table");
+	const calendar = document.createElement("div");
 	calendar.setAttribute("class", "calendar");
 	return calendar;
 };
@@ -114,7 +114,7 @@ const addCalendarToContainer = (calendar) => {
 };
 
 source.subscribe((res) => {
-	const calendar = createCalendar();
+	const calendar = document.querySelector(".calendar") || createCalendar();
 
 	res.forEach((month) => {
 		const _month = createMonth();
