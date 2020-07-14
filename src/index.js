@@ -1,8 +1,9 @@
-const { fromEvent } = rxjs;
-const { map } = rxjs.operators;
+import "rxjs";
+import { fromEvent } from "rxjs";
+import { map } from "rxjs/operators";
+import "../style.css";
 
-const button = document.querySelector(".btn");
-
+const button = document.querySelector(".button");
 const fromDate = document.querySelector("#dateFrom");
 const toDate = document.querySelector("#dateTo");
 
@@ -67,13 +68,17 @@ const getMonths = (dateFrom, dateTo) => {
 		}
 		months[months.length - 1][months[months.length - 1].length - 1].push(currentDay);
 	}
-	console.log(months);
 	// top up first and last weeks of each month
 	return months.map((month) => fillWeek(month));
 };
 
 const source = fromEvent(button, "click").pipe(map((_) => getMonths(dateFrom.value, dateTo.value)));
 
+const showAlarmWindow = (e) => {
+	const w = document.querySelector(".alarmWindow");
+	w.querySelector(".close").addEventListener("click", (e) => w.classList.add("d-none"));
+	w.classList.remove("d-none");
+};
 
 const createDaysRow = () => {
 	const week = createWeek();
