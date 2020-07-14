@@ -1,7 +1,7 @@
 import "rxjs";
 import { fromEvent } from "rxjs";
 import { map } from "rxjs/operators";
-import "../style.css";
+import "../style.scss";
 
 const button = document.querySelector(".button");
 const fromDate = document.querySelector("#dateFrom");
