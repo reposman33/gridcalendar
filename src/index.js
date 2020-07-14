@@ -3,10 +3,36 @@ import { fromEvent } from "rxjs";
 import { map } from "rxjs/operators";
 import "../style.scss";
 
-const button = document.querySelector(".button");
-const fromDate = document.querySelector("#dateFrom");
-const toDate = document.querySelector("#dateTo");
+// ============ CALENDAR ============
 
+// button 'Go!' to show calendar from chosen period
+const calendarButton = document.querySelector("[data-type=ShowCalendarButton]");
+// Subscribe to Observer
+const source = fromEvent(calendarButton, "click").pipe(map((_) => getMonths(dateFrom.value, dateTo.value)));
+
+// Create an array of months from chosen period
+source.subscribe((res) => {
+	const calendar = document.querySelector(".calendar") || createCalendar();
+
+	res.forEach((month, monthIndex) => {
+		const _month = createMonth(
+			month[1][0].toLocaleDateString(navigator.language, { month: "long" }),
+			month[1][0].getFullYear()
+		);
+		addWeekToMonth(createDaysRow(), _month);
+		month.forEach((week, weekIndex) => {
+			const _week = createWeek();
+			week.forEach((day, dayIndex) => {
+				addDayToWeek(createDay(day ? day.getDate() : "", monthIndex * 100 + weekIndex * 10 + dayIndex), _week);
+				addWeekToMonth(_week, _month);
+			});
+		});
+		addMonthToCalendar(_month, calendar);
+	});
+	addCalendarToContainer(calendar);
+});
+
+// GetMonths utility functions
 /**
  *
  * @description - sometimes a month doesn't start/end with a full week. Since the calendar week is based upon the week array it will only show the days provided. To align & display all days in a week we have to top up the week array with empty values.
@@ -37,7 +63,6 @@ const getMonths = (dateFrom, dateTo) => {
 	const day = 24 * 60 * 60 * 1000; //day in millisecs
 	const startDate = new Date(dateFrom); // convert to msec so we can add days to it
 	let months = [[[]]]; // initialize months array
-
 	// lastMonth = months[months.length - 1];
 	// lastWeekInLastMonth = months[months.length - 1][months[months.length - 1].length - 1];
 	months[months.length - 1][months[months.length - 1].length - 1].push(startDate);
@@ -72,13 +97,7 @@ const getMonths = (dateFrom, dateTo) => {
 	return months.map((month) => fillWeek(month));
 };
 
-const source = fromEvent(button, "click").pipe(map((_) => getMonths(dateFrom.value, dateTo.value)));
-
-const showAlarmWindow = (e) => {
-	const w = document.querySelector(".alarmWindow");
-	w.querySelector(".close").addEventListener("click", (e) => w.classList.add("d-none"));
-	w.classList.remove("d-none");
-};
+// Calendar create DOM functions
 
 const createDaysRow = () => {
 	const week = createWeek();
@@ -115,6 +134,8 @@ const createCalendar = () => {
 	return calendar;
 };
 
+// Calendar concatenate DOM element functions
+
 const addDayToWeek = (day, week) => week.appendChild(day);
 
 const addWeekToMonth = (week, month) => month.appendChild(week);
@@ -129,23 +150,10 @@ const addCalendarToContainer = (calendar) => {
 	return container;
 };
 
-source.subscribe((res) => {
-	const calendar = document.querySelector(".calendar") || createCalendar();
+// ============ ALARM WINDOW ============
 
-	res.forEach((month, monthIndex) => {
-		const _month = createMonth(
-			month[1][0].toLocaleDateString(navigator.language, { month: "long" }),
-			month[1][0].getFullYear()
-		);
-		addWeekToMonth(createDaysRow(), _month);
-		month.forEach((week, weekIndex) => {
-			const _week = createWeek();
-			week.forEach((day, dayIndex) => {
-				addDayToWeek(createDay(day ? day.getDate() : "", monthIndex * 100 + weekIndex * 10 + dayIndex), _week);
-				addWeekToMonth(_week, _month);
-			});
-		});
-		addMonthToCalendar(_month, calendar);
-	});
-	addCalendarToContainer(calendar);
-});
+const showAlarmWindow = (e) => {
+	const w = document.querySelector(".alarmWindow");
+	w.querySelector(".close").addEventListener("click", (e) => w.classList.add("d-none"));
+	w.classList.remove("d-none");
+};
