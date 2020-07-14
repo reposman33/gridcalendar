@@ -3,13 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=, initial-scale=">
-	<link rel="stylesheet" href="style.css" type="text/css">
-  	<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
-	<title>gridCalendar</title>
+	<title>MyGridCalendar</title>
 </head>
 <body>
 
-<div class="container d-flex flex-column align-items-center"> 
+<div class="container"> 
 	<h1>Gridcalendar</h1>
 	
 	<p>Create your calendar</p!>
@@ -24,12 +22,28 @@
 		<td><input type="date" id='dateTo'></td>
 	</tr>
 	<tr>
-		<td colspan="2"><button class="btn btn-primary my-3">Go!</button></td>
+		<td colspan="2"><button class="button">Go!</button></td>
 	</tr>
 </table>
 
+<div class="alarmWindow d-none" >
+	<div class="windowTitle">
+		<span>Set alarm</span> <span class="close">x</span>
+	</div>
+	<div class='alarmTime'>
+		<label>When: </label> <input type="datetime-local">
+	</div>
+	<div class="alarmTitle">
+		<label>Subject:</label><input type="text">
+	</div>
+	<label>Description:</label>
+	<textArea></textArea>
+	<div class="buttons">
+		<button class="cancel">Cancel</button>
+		<button class="save">Add</button>
+	</div>
+</div>
 </div>
 
-<script src="./index.js" type='application/javascript'></script>
 </body>
 </html>
