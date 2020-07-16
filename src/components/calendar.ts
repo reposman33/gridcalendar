@@ -3,7 +3,8 @@ import { TDay } from "../models";
 import { Day } from "./day";
 
 class Calendar {
-	today: number = Date.now();
+	todaysDate: number = new Date().getDate();
+	todaysMonth: number = new Date().getMonth();
 	AlarmManager: AlarmManager;
 	constructor() {
 		this.AlarmManager = new AlarmManager();
@@ -95,6 +96,7 @@ class Calendar {
 		const day = document.createElement("span");
 		day.setAttribute("data-day-id", Day.getDateId());
 		day.innerText = Day.getDate() !== -1 ? Day.getDate() + "" : "";
+		day.classList.toggle("selected", this.todaysMonth === Day.getMonth() && this.todaysDate === Day.getDate());
 		day.addEventListener("click", () => this.AlarmManager.showAlarmWindow(Day.getDateId(), Day.getDate()));
 		return day;
 	};

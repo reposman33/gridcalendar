@@ -17,7 +17,7 @@ class Day {
 	 * return the month index of the date
 	 */
 	getMonth(): number {
-		return this.date.getMonth();
+		return this.date ? this.date.getMonth() : -1;
 	}
 	/**
 	 * return the index of the weekday
