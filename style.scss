@@ -64,6 +64,7 @@
 				height: 15%;
 				margin: 3px auto;
 
+				// day
 				& span {
 					background-color: aliceblue;
 					display: flex;
@@ -72,6 +73,10 @@
 					justify-content: center;
 					align-items: center;
 					height: 100%;
+
+					&.today {
+						background-color: darken(aliceblue, 50);
+					}
 				}
 				& span[data-day-id] {
 					cursor: pointer;
