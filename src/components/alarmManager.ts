@@ -16,9 +16,14 @@ class AlarmManager {
 		);
 	}
 
+	closeAlarmWindow() {
+		document.querySelector(".alarmWindow").classList.toggle("d-none");
+	}
+
 	showAlarmWindow(dayId: string, date: number | string) {
 		const w = document.querySelector(".alarmWindow");
-		w.querySelector(".close").addEventListener("click", (e) => w.classList.add("d-none"));
+		w.querySelector(".close").addEventListener("click", this.closeAlarmWindow);
+		w.querySelector(".cancel").addEventListener("click", this.closeAlarmWindow);
 		w.classList.remove("d-none");
 		w.querySelector("button.save").addEventListener("click", () => this.addAlarm(dayId, date));
 	}
@@ -31,6 +36,7 @@ class AlarmManager {
 			alarmDescription: (<HTMLTextAreaElement>document.querySelector(".alarmDescription")).value,
 		};
 		this.activeAlarms.push(alarm);
+		this.closeAlarmWindow();
 		console.log("activeAlarms: ", this.activeAlarms);
 	}
 
