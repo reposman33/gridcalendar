@@ -9,8 +9,8 @@ class Day {
 	/** get the date
 	 *
 	 */
-	getDate(): number | string {
-		return this.date ? this.date.getDate() : "";
+	getDate(): number {
+		return this.date ? this.date.getDate() : -1;
 	}
 
 	/**
@@ -36,6 +36,7 @@ class Day {
 	/**
 	 * get the unique id of a date
 	 */
+
 	getDateId(): string {
 		return this.dateId + "";
 	}
