@@ -1,36 +1,44 @@
 class Day {
-	date: Date;
+	Date: Date;
+	year: number;
+	month: number;
+	date: number;
 	dateId: number;
+	time: number;
 
 	constructor(day?: Date) {
-		this.date = day;
+		this.Date = day;
+		this.year = this.Date ? this.Date.getFullYear() : -1;
+		this.month = this.Date ? this.Date.getMonth() : -1;
+		this.date = this.Date ? this.Date.getDate() : -1;
+		this.time = day ? day.getTime() : Math.ceil(Math.random() * 100000);
 	}
 
 	/** get the date
 	 *
 	 */
 	getDate(): number {
-		return this.date ? this.date.getDate() : -1;
+		return this.Date ? this.Date.getDate() : -1;
 	}
 
 	/**
 	 * return the month index of the date
 	 */
 	getMonth(): number {
-		return this.date ? this.date.getMonth() : -1;
+		return this.Date ? this.Date.getMonth() : -1;
 	}
 	/**
 	 * return the index of the weekday
 	 */
 	getDay(): number {
-		return this.date.getDay();
+		return this.Date.getDay();
 	}
 
 	/**
 	 * get the date in milliseconds
 	 */
 	getTime(): number {
-		return this.date.getTime();
+		return this.Date.getTime();
 	}
 
 	/**
@@ -38,19 +46,15 @@ class Day {
 	 */
 
 	getDateId(): string {
-		return this.dateId + "";
-	}
-
-	setDateId(id: number): void {
-		this.dateId = id;
+		return this.time + "";
 	}
 
 	toLocaleDateString(): string {
-		return this.date.toLocaleDateString(navigator.language, { month: "long" });
+		return this.Date.toLocaleDateString(navigator.language, { month: "long" });
 	}
 
 	getFullYear(): number {
-		return this.date.getFullYear();
+		return this.Date.getFullYear();
 	}
 }
 
