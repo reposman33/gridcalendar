@@ -1,3 +1,7 @@
+$alarmLevelLow: #f09898;
+$alarmLevelModerate: #f05c5c;
+$alarmLevelHigh: #f50c0c;
+
 .container {
 	align-items: center;
 	display: flex;
@@ -76,6 +80,17 @@
 
 					&.selected {
 						background-color: darken(aliceblue, 50);
+					}
+					&.alarmLevelLow {
+						background-color: $alarmLevelLow;
+					}
+
+					&.alarmLevelModerate {
+						background-color: $alarmLevelModerate;
+					}
+
+					&.alarmLevelHigh {
+						background-color: $alarmLevelHigh;
 					}
 				}
 				& span[data-day-id] {
@@ -159,6 +174,7 @@
 		& button {
 			background-color: #007bff;
 			color: white;
+			cursor: pointer;
 			border: 1px solid transparent;
 			border-color: #007bff;
 			border-radius: 0.25rem;

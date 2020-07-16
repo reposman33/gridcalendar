@@ -29,7 +29,6 @@ class Main {
 					// create a DOM element with monthname and year
 					// prevent ts error 'Object is possibly 'undefined'.ts(2532)'
 					// // tslint:disable-next-line
-					console.log("month = ", month);
 					const _month = this.Calendar.createMonth(
 						month[1][0].toLocaleDateString(),
 						month[1][0].getFullYear()
