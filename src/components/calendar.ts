@@ -41,8 +41,10 @@ class Calendar {
 
 	// calculate DATA model for calendar - an array of Day objects
 
-	getMonths = (dateFrom: string, dateTo: string): Day[][][] => {
+	getMonths = (year: number): Day[][][] => {
 		const day = 24 * 60 * 60 * 1000; //day in millisecs
+		const dateFrom = `${year}-01-01`;
+		const dateTo = `${year}-12-31`;
 		const startDate: Day = new Day(new Date(dateFrom)); // convert to msec so we can add days to it
 		let months: Day[][][] = [[[startDate]]]; // initialize months array
 		const days: number = (new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / day + 1;
@@ -76,7 +78,7 @@ class Calendar {
 		return months.map((month: Day[][]) => this.fillWeek(month));
 	};
 
-	// Create the DOM modle of te Calendar - divs, spans etc
+	// Create the DOM model of the Calendar - divs, spans etc
 
 	createDaysRow = () => {
 		const week = this.createWeek();

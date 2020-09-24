@@ -1,6 +1,6 @@
 import "rxjs";
 import { fromEvent, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, subscribeOn } from "rxjs/operators";
 import { AlarmManager } from "./components/alarmManager";
 import { Calendar } from "./components/calendar";
 import { Day } from "./components/day";
@@ -15,14 +15,20 @@ class Main {
 	Day: Day;
 	calendarButton: HTMLButtonElement;
 	months$: Subscription;
+	yearSelect: Subscription;
+	selectedYear: string;
 	today: number;
 
 	constructor() {
 		this.today = Date.now();
 		this.Calendar = new Calendar();
-		this.calendarButton = document.querySelector("[data-type=ShowCalendarButton]");
+		this.yearSelect = fromEvent(document.querySelector("#years"), "change").subscribe((selectedYear) => {
+			const inputEl = selectedYear.target as HTMLInputElement;
+			this.selectedYear = inputEl.value;
+		});
+		this.calendarButton = <HTMLButtonElement>document.querySelector("[data-type=ShowCalendarButton]");
 		this.months$ = fromEvent(this.calendarButton, "click")
-			.pipe(map((_) => this.Calendar.getMonths("2020-01-01", "2020-12-31"))) // document.querySelector('#dateFrom').value,document.querySelector('#dateTo).value
+			.pipe(map((_) => this.Calendar.getMonths(Number(this.selectedYear))))
 			.subscribe((months) => {
 				const calendar: HTMLDivElement = document.querySelector(".calendar") || this.Calendar.createCalendar();
 				months.forEach((month, monthIndex) => {
