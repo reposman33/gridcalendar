@@ -7,28 +7,27 @@ import { Day } from "./components/day";
 
 import "../style.scss";
 
-// ============ ALARM WINDOW ============
+// TODO: ============ ALARM WINDOW ============
 
 // ============ CALENDAR ============
 class Main {
 	Calendar: Calendar;
 	Day: Day;
-	calendarButton: HTMLButtonElement;
-	months$: Subscription;
-	yearSelect: Subscription;
 	selectedYear: string;
-	today: number;
 
 	constructor() {
-		this.today = Date.now();
 		this.Calendar = new Calendar();
-		this.yearSelect = fromEvent(document.querySelector("#years"), "change").subscribe((selectedYear) => {
+		// get the initial year from select #years
+		const yearSelect = document.querySelector("#years") as HTMLInputElement;
+		this.selectedYear = yearSelect.value;
+
+		// subscribe to the change event of the select #years
+		fromEvent(document.querySelector("#years"), "change").subscribe((selectedYear) => {
 			const inputEl = selectedYear.target as HTMLInputElement;
 			this.selectedYear = inputEl.value;
-			//console.log("inputEl = ", inputEl);
 		});
-		this.calendarButton = <HTMLButtonElement>document.querySelector("[data-type=ShowCalendarButton]");
-		this.months$ = fromEvent(this.calendarButton, "click")
+		const calendarButton = <HTMLButtonElement>document.querySelector("[data-type=ShowCalendarButton]");
+		fromEvent(calendarButton, "click")
 			.pipe(map((_) => this.Calendar.getMonths(Number(this.selectedYear))))
 			.subscribe((months) => {
 				const calendar: HTMLDivElement = this.Calendar.createCalendar();
