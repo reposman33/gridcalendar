@@ -1,4 +1,4 @@
-import { alarm } from "../models";
+import { Alarm } from "../models";
 
 class AlarmManager {
 	activeAlarms: object[];
@@ -13,13 +13,16 @@ class AlarmManager {
 
 	constructor() {
 		this.activeAlarms = [];
-		const w = document.querySelector(".alarmWindow");
+		const w = document.querySelector("#alarmWindow");
 		w.querySelector(".close").addEventListener("click", this.closeAlarmWindow);
 		w.querySelector("#cancelAlarm").addEventListener("click", this.closeAlarmWindow);
 		w.querySelector("#saveAlarm").addEventListener("click", this.addAlarm);
+
+		document.querySelector("#cancelAlarmDisplay").addEventListener("click", this.closeActiveAlarmWindow);
+
 		setInterval(
 			() =>
-				this.activeAlarms.forEach((alarm: alarm, i: number, activeAlarms: alarm[]) =>
+				this.activeAlarms.forEach((alarm: Alarm, i: number, activeAlarms: Alarm[]) =>
 					this.checkAlarm(alarm, Date.now(), activeAlarms)
 				),
 			1000
@@ -34,7 +37,15 @@ class AlarmManager {
 		(<HTMLTextAreaElement>document.querySelector("textarea.alarmDescription")).value = null;
 		//@ts-ignore
 		document.querySelectorAll("input[type=radio][name=alarmLevel]").forEach((alarm) => (alarm.checked = false));
-		document.querySelector(".alarmWindow").classList.toggle("d-none");
+		document.querySelector("#alarmWindow").classList.toggle("d-none");
+	}
+
+	closeActiveAlarmWindow() {
+		document.querySelector("#activeAlarmWindow .alarmTitle").textContent = null;
+		(<HTMLTextAreaElement>document.querySelector(".alarmTitle input")).value = null;
+		document.querySelector("#activeAlarmWindow .alarmDescription").textContent = null;
+		//@ts-ignore
+		document.querySelector("#activeAlarmWindow").classList.toggle("d-none");
 	}
 
 	addClassForDay(selector: string, klass: string): void {
@@ -48,11 +59,18 @@ class AlarmManager {
 	showAlarmWindow(dayId: string, date: number) {
 		this.dayId = dayId;
 		this.date = date;
-		document.querySelector(".alarmWindow").classList.remove("d-none");
+		document.querySelector("#alarmWindow").classList.remove("d-none");
+	}
+
+	showActiveAlarmWindow(alarm: Alarm) {
+		document.querySelector("#activeAlarmWindow").classList.remove("d-none");
+		document.querySelector("#activeAlarmWindow .alarmTitle").textContent = alarm.alarmTitle;
+		(<HTMLInputElement>document.querySelector("#activeAlarmWindow .alarmDescription")).value =
+			alarm.alarmDescription;
 	}
 
 	addAlarm = () => {
-		const alarmWindow = document.querySelector(".alarmWindow");
+		const alarmWindow = document.querySelector("#alarmWindow");
 		let alarmSeverity: string;
 		alarmWindow.querySelectorAll("input[type=radio][name=alarmLevel]").forEach(
 			(alarm) =>
@@ -73,13 +91,9 @@ class AlarmManager {
 	};
 
 	// check the active alarms
-	checkAlarm = (alarm: alarm, now: number, activeAlarms: alarm[]) => {
+	checkAlarm = (alarm: Alarm, now: number, activeAlarms: Alarm[]) => {
 		if (alarm.alarmTime <= now) {
-			console.log(
-				`ALARM! Vergeet niet ${alarm.alarmTitle}: ${alarm.alarmDescription} (het is immers ${new Date(
-					alarm.alarmTime
-				)})`
-			);
+			this.showActiveAlarmWindow(alarm);
 			activeAlarms.splice(
 				activeAlarms.findIndex((alarm) => alarm.alarmTime <= now),
 				1

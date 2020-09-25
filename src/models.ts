@@ -1,4 +1,4 @@
-export class alarm {
+export class Alarm {
 	dayId: number;
 	alarmTime: number;
 	alarmTitle: string;

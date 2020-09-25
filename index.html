@@ -37,7 +37,22 @@
 			</tr>
 		</table>
 
-		<div class="alarmWindow d-none" >
+		<div class="alarmWindow d-none" id="activeAlarmWindow">
+			<div class="windowTitle">
+				<span>Attention</span>
+			</div>
+				<div class="d-flex f-dir-row">
+					<label>Event</label>
+					<div class="alarmTitle" />
+				</div>
+			</div>
+			<textArea class='alarmDescription'></textArea>
+			<div class="buttons">
+				<button id="cancelAlarmDisplay">Cancel</button>
+			</div>
+		</div>
+
+		<div class="alarmWindow d-none" id="alarmWindow" >
 			<div class="windowTitle">
 				<span>Set alarm</span> <span class="close">x</span>
 			</div>
@@ -50,8 +65,8 @@
 			<label>Description:</label>
 			<textArea class='alarmDescription'></textArea>
 			<div class="buttons">
-				<button id="cancelAlarm">Cancel</button>
-				<button id="saveAlarm">Add</button>
+				<button class="cancel" id="cancelAlarm">Cancel</button>
+				<button class="save" id="saveAlarm">Add</button>
 			</div>
 			<div>
 				<label for="">alarmLevel</label>
