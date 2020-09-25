@@ -25,12 +25,13 @@ class Main {
 		this.yearSelect = fromEvent(document.querySelector("#years"), "change").subscribe((selectedYear) => {
 			const inputEl = selectedYear.target as HTMLInputElement;
 			this.selectedYear = inputEl.value;
+			//console.log("inputEl = ", inputEl);
 		});
 		this.calendarButton = <HTMLButtonElement>document.querySelector("[data-type=ShowCalendarButton]");
 		this.months$ = fromEvent(this.calendarButton, "click")
 			.pipe(map((_) => this.Calendar.getMonths(Number(this.selectedYear))))
 			.subscribe((months) => {
-				const calendar: HTMLDivElement = document.querySelector(".calendar") || this.Calendar.createCalendar();
+				const calendar: HTMLDivElement = this.Calendar.createCalendar();
 				months.forEach((month, monthIndex) => {
 					// create a DOM element with monthname and year
 					// prevent ts error 'Object is possibly 'undefined'.ts(2532)'

@@ -135,9 +135,11 @@ class Calendar {
 	};
 
 	addCalendarToContainer = (calendar: HTMLDivElement) => {
-		const container = document.querySelector(".container");
-		container.appendChild(calendar);
-		return container;
+		const calendarEl = document.querySelector(".calendar");
+		// remove a previous existing calendar...
+		calendarEl ? calendarEl.remove() : null;
+		// ... before appending a new one to the container
+		document.querySelector(".container").appendChild(calendar);
 	};
 }
 
