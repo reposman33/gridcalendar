@@ -15,8 +15,8 @@ class AlarmManager {
 		this.activeAlarms = [];
 		const w = document.querySelector(".alarmWindow");
 		w.querySelector(".close").addEventListener("click", this.closeAlarmWindow);
-		w.querySelector(".cancel").addEventListener("click", this.closeAlarmWindow);
-		w.querySelector(".save").addEventListener("click", this.addAlarm);
+		w.querySelector("#cancelAlarm").addEventListener("click", this.closeAlarmWindow);
+		w.querySelector("#saveAlarm").addEventListener("click", this.addAlarm);
 		setInterval(
 			() =>
 				this.activeAlarms.forEach((alarm: alarm, i: number, activeAlarms: alarm[]) =>

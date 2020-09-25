@@ -10,6 +10,25 @@ $alarmLevelHigh: #f50c0c;
 	margin: auto;
 	width: 80%;
 
+	/* layout of the buttons */
+	& .buttons {
+		display: flex;
+		justify-content: flex-end;
+		& button {
+			background-color: #007bff;
+			color: white;
+			cursor: pointer;
+			border: 1px solid transparent;
+			border-color: #007bff;
+			border-radius: 0.25rem;
+			padding: 0.375rem 0.75rem;
+
+			&:last-of-type :not(:only-of-type) {
+				margin-left: 1rem;
+			}
+		}
+	}
+
 	h1 {
 		color: black;
 	}
@@ -41,7 +60,7 @@ $alarmLevelHigh: #f50c0c;
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: flex-start;
-		margin-top: 4 rem;
+		margin-top: 4rem;
 		padding: 1rem;
 		width: 65vh;
 
@@ -167,24 +186,6 @@ $alarmLevelHigh: #f50c0c;
 	/* size the textarea */
 	& textarea {
 		min-height: 33%;
-	}
-	/* layout of the buttons */
-	& .buttons {
-		display: flex;
-		justify-content: flex-end;
-		& button {
-			background-color: #007bff;
-			color: white;
-			cursor: pointer;
-			border: 1px solid transparent;
-			border-color: #007bff;
-			border-radius: 0.25rem;
-			padding: 0.375rem 0.75rem;
-
-			&:last-of-type {
-				margin-left: 1rem;
-			}
-		}
 	}
 }
 

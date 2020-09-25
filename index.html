@@ -10,7 +10,7 @@
 	<div class="container"> 
 		<h1>Gridcalendar</h1>
 		
-		<p>Create your calendar</p!>
+		<p>Choose a year</p!>
 
 		<table>
 			<tr>
@@ -29,7 +29,11 @@
 				</select>
 			</tr>
 			<tr>
-				<td colspan="2"><button class="button" data-type='ShowCalendarButton'>Go!</button></td>
+					<td colspan="2">
+						<div class="buttons">
+						<button data-type='ShowCalendarButton'>Create</button>
+					</div>
+				</td>
 			</tr>
 		</table>
 
@@ -46,8 +50,8 @@
 			<label>Description:</label>
 			<textArea class='alarmDescription'></textArea>
 			<div class="buttons">
-				<button class="cancel">Cancel</button>
-				<button class="save">Add</button>
+				<button id="cancelAlarm">Cancel</button>
+				<button id="saveAlarm">Add</button>
 			</div>
 			<div>
 				<label for="">alarmLevel</label>

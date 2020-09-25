@@ -1,6 +1,6 @@
 import "rxjs";
-import { fromEvent, Subscription } from "rxjs";
-import { map, subscribeOn } from "rxjs/operators";
+import { fromEvent } from "rxjs";
+import { map } from "rxjs/operators";
 import { AlarmManager } from "./components/alarmManager";
 import { Calendar } from "./components/calendar";
 import { Day } from "./components/day";
